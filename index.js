@@ -1,90 +1,51 @@
-function hasTargetSum(array, target) {
-  const seenNumbers = {};
 
-  for (const number of array) {
-    // n steps
-    const complement = target - number;
-    if (complement in seenNumbers) return true;
-    seenNumbers[number] = true;
+function hasTargetSum(array, target) {
+  for (let i = 0; i < array.length; i++) {
+    const complement = target - array[i];
+    for (let j = i + 1; j < array.length; j++) {
+      if (array[j] === complement) return true;
+    }
   }
 
   return false;
 }
 
-// Runtime: O(n^2)
-// function hasTargetSum(array, target) {
-//   for (let i = 0; i < array.length; i++) {
-//     const complement = target - array[i];
-//     for (let j = i + 1; j < array.length; j++) {
-//       if (array[j] === complement) return true;
-//     }
-//   }
-
-//   return false;
-// }
-
-// O(n) runtime
-function findSock(array) {
-  for (const item of array) {
-    if (item === "sock") return "sock";
-  }
-}
-
-// O(1) runtime
-function findSock(object) {
-  if (object.sock) return "sock";
-}
 /* 
   Write the Big O time complexity of your function here
-  Runtime: O(n^2)
-  Space: O(n)
-*/
+  O(n)
 
-/* 
-  hasTargetSum([1,2,3,4], 6)
-  seenNumbers = {
-    1: true,
-    2: true,
-    3: true
-  }
-  create an object to keep track of numbers we've already seen
-  iterate through each number in the array
-    for the current num, identify a complement that adds to the target (comp = target - num)
-    check if any key on our object is the complement
-      if so, return true
-      otherwise, add that number to the object
-  if I reach the end of the array, return false
 */
 
 /*
   Add written explanation of your solution here
+  To determine the difference between a particular number in the array and the target, use the for loop. To see if the difference is a number in the array, loop it again. If the answer is yes, then return is true. If not, the return is false.
 */
 
 // You can run `node index.js` to view these console logs
 if (require.main === module) {
   // add your own custom tests in here
   console.log("Expecting: true");
-  console.log("=>", hasTargetSum([3, 8, 12, 4, 11, 7], 10));
+  console.log("=>", hasTargetSum([3, 8, 43, 4, 6, 7], 10));
 
   console.log("");
 
   console.log("Expecting: true");
-  console.log("=>", hasTargetSum([22, 19, 4, 6, 30], 25));
+  console.log("=>", hasTargetSum([21, 14, 4, 6, 1], 25));
 
   console.log("");
 
   console.log("Expecting: false");
-  console.log("=>", hasTargetSum([1, 2, 5], 4));
+  console.log("=>", hasTargetSum([5, 9, 5], 4));
 
   console.log("");
 
   console.log("Expecting: false");
-  console.log("=>", hasTargetSum([4], 4));
+  console.log("=>", hasTargetSum([20], 20));
 
   console.log("");
 
   console.log("Expecting: true");
-  console.log("=>", hasTargetSum([-1, 2, 7, 4], 6));
+  console.log("=>", hasTargetSum([14, 3, 7, 3], 6));
 }
 
 module.exports = hasTargetSum;
